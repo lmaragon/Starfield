@@ -14,35 +14,38 @@ import java.io.IOException;
 
 public class Starfield extends PApplet {
 
-Particle [] galaxy = new Particle [200];
+Particle [] galaxy = new Particle [201];
 
 public void setup()
 {
 	size (400,400);
 	noCursor();
-	for (int i=1; i<galaxy.length; i++)
+	for (int i=2; i<galaxy.length; i++)
 	{
 		galaxy [i] = new NormalParticle();
 	}
 		galaxy [0] = new OddballParticle();
+		galaxy [1] = new Jumbo();
 }
 
 public void draw()
 {
 	fill(0,0,0,50);
  	rect(0,0,400,400);
-	for (int i=1; i<galaxy.length; i++)
+	for (int i=2; i<galaxy.length; i++)
   {
     galaxy[i].move();
     galaxy[i].show();
     galaxy[i].wrap();
   }
   	galaxy[0].move();
+  	galaxy[1].move();
     galaxy[0].show();
+    galaxy[1].show();
     galaxy[0].wrap();
+    galaxy[1].wrap();
     target();
 }
-
 
 public void target()
 {
@@ -55,7 +58,6 @@ public void target()
 class NormalParticle implements Particle
 {
 	double myX, myY, speedX, speedY, angleP, parSize;
-	int colorR, colorB, colorG;
 	NormalParticle()
 	{
 		myX = 200;
@@ -63,9 +65,6 @@ class NormalParticle implements Particle
 		angleP = (Math.random()*2*Math.PI);
 		speedX = (Math.random()*2+1);
 		speedY = (Math.random()*2+1);
-		colorR = 168;
-		colorB = 111;
-		colorG = 242;
 		parSize = 2;
 	}
 	public void move()
@@ -77,7 +76,7 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		noStroke();
-		fill(colorR,colorB,colorG);
+		fill(168,111,242);
 		ellipse((float)myX, (float)myY, (float)parSize, (float)parSize);
 	}
 	public void wrap()
@@ -87,12 +86,48 @@ class NormalParticle implements Particle
 			myX=200;
 			myY=200;
 			parSize = 2;
+			angleP = (Math.random()*2*Math.PI);
+			speedX = (Math.random()*2+1);
+			speedY = (Math.random()*2+1);
 		}
 		if (myY>400 || myY<0)
 		{
 			myX=200;
 			myY=200;
 			parSize = 2;
+			angleP = (Math.random()*2*Math.PI);
+			speedX = (Math.random()*2+1);
+			speedY = (Math.random()*2+1);
+		}
+
+	}
+}
+
+class Jumbo extends NormalParticle
+{
+	Jumbo()
+	{
+		parSize = 15;
+	}
+public void wrap()
+	{
+		if (myX>400 || myX<0)
+		{
+			myX=200;
+			myY=200;
+			parSize = 15;
+			angleP = (Math.random()*2*Math.PI);
+			speedX = (Math.random()*2+1);
+			speedY = (Math.random()*2+1);
+		}
+		if (myY>400 || myY<0)
+		{
+			myX=200;
+			myY=200;
+			parSize = 15;
+			angleP = (Math.random()*2*Math.PI);
+			speedX = (Math.random()*2+1);
+			speedY = (Math.random()*2+1);
 		}
 
 	}
